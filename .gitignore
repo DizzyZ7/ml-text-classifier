@@ -7,9 +7,4 @@ venv/
 env/
 .python-version
 
-models/*.joblib
-reports/*.png
-reports/*.json
-data/predictions.csv
-
 .DS_Store

@@ -1,0 +1,10 @@
+text,true_label,predicted_label
+Это был худший опыт за последнее время,negative,negative
+"Очень приятный опыт, спасибо",positive,positive
+Отличный сервис и быстрая доставка,positive,positive
+Это сообщение носит информационный характер,neutral,neutral
+Я разочарован этой покупкой,negative,negative
+Программа запускается в стандартном режиме,neutral,neutral
+"Замечательная работа, всё супер",positive,positive
+"Совсем не понравилось, пустая трата денег",negative,negative
+На столе лежит книга,neutral,neutral

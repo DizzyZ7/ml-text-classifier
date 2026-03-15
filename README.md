@@ -54,13 +54,24 @@ ml-text-classifier/
 
 Ниже блок будет автоматически обновляться после запуска GitHub Actions.
 <!-- METRICS_START -->
-Метрики появятся здесь после первого выполнения рабочего процесса.
+## Metrics
+
+- Accuracy: **1.0**
+- Labels: **negative, neutral, positive**
 <!-- METRICS_END -->
 <!-- EXAMPLES_START -->
-Примеры прогнозов появятся здесь после первого выполнения рабочего процесса.
+## Example Predictions
+
+| text                                        | true_label   | predicted_label   |
+|:--------------------------------------------|:-------------|:------------------|
+| Это был худший опыт за последнее время      | negative     | negative          |
+| Очень приятный опыт, спасибо                | positive     | positive          |
+| Отличный сервис и быстрая доставка          | positive     | positive          |
+| Это сообщение носит информационный характер | neutral      | neutral           |
+| Я разочарован этой покупкой                 | negative     | negative          |
 <!-- EXAMPLES_END -->
 <!-- IMAGE_START -->
-Матрица путаницы
+## Confusion Matrix
 
-Изображение появится здесь после первого выполнения рабочего процесса.
+![Confusion Matrix](reports/confusion_matrix.png)
 <!-- IMAGE_END -->

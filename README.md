@@ -16,6 +16,7 @@ ml-text-classifier/
 │
 ├── data/
 │   ├── dataset.csv
+│   ├── input_texts.csv
 │   └── predictions.csv
 │
 ├── models/
@@ -49,6 +50,19 @@ ml-text-classifier/
 По умолчанию используется pipeline:
 	•	TfidfVectorizer
 	•	LogisticRegression
+## Пользовательские предсказания
+
+Для собственных текстов используется файл:
+
+- `data/input_texts.csv`
+
+Он должен содержать колонку:
+
+- `text`
+
+После запуска GitHub Actions модель автоматически читает этот файл и сохраняет результаты в:
+
+- `data/predictions.csv`
 
 Текущие результаты
 

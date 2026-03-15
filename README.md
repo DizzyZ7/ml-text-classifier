@@ -56,7 +56,7 @@ ml-text-classifier/
 <!-- METRICS_START -->
 ## Metrics
 
-- Accuracy: **1.0**
+- Accuracy: **0.4444**
 - Labels: **negative, neutral, positive**
 <!-- METRICS_END -->
 <!-- EXAMPLES_START -->
@@ -64,11 +64,11 @@ ml-text-classifier/
 
 | text                                        | true_label   | predicted_label   |
 |:--------------------------------------------|:-------------|:------------------|
-| Это был худший опыт за последнее время      | negative     | negative          |
+| Это был худший опыт за последнее время      | negative     | neutral           |
 | Очень приятный опыт, спасибо                | positive     | positive          |
-| Отличный сервис и быстрая доставка          | positive     | positive          |
-| Это сообщение носит информационный характер | neutral      | neutral           |
-| Я разочарован этой покупкой                 | negative     | negative          |
+| Отличный сервис и быстрая доставка          | positive     | negative          |
+| Это сообщение носит информационный характер | neutral      | positive          |
+| Я разочарован этой покупкой                 | negative     | positive          |
 <!-- EXAMPLES_END -->
 <!-- IMAGE_START -->
 ## Confusion Matrix

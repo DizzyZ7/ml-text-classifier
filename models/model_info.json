@@ -1,0 +1,9 @@
+{
+  "best_model": "LinearSVC",
+  "best_f1_weighted": 0.4444,
+  "all_model_scores": {
+    "LogisticRegression": 0.3175,
+    "MultinomialNB": 0.2167,
+    "LinearSVC": 0.4444
+  }
+}

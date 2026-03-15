@@ -4,13 +4,19 @@ import joblib
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    precision_recall_fscore_support,
+)
 from sklearn.model_selection import train_test_split
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = BASE_DIR / "data" / "dataset.csv"
 MODEL_PATH = BASE_DIR / "models" / "model.joblib"
+MODEL_INFO_PATH = BASE_DIR / "models" / "model_info.json"
 REPORTS_DIR = BASE_DIR / "reports"
 METRICS_PATH = REPORTS_DIR / "metrics.json"
 CONFUSION_MATRIX_PATH = REPORTS_DIR / "confusion_matrix.png"
@@ -34,22 +40,36 @@ def main() -> None:
 
     model = joblib.load(MODEL_PATH)
 
+    with open(MODEL_INFO_PATH, "r", encoding="utf-8") as f:
+        model_info = json.load(f)
+
     y_pred = model.predict(X_test)
 
     accuracy = accuracy_score(y_test, y_pred)
-    report = classification_report(y_test, y_pred, output_dict=True)
-    cm = confusion_matrix(y_test, y_pred, labels=sorted(y.unique()))
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        y_test,
+        y_pred,
+        average="weighted",
+        zero_division=0
+    )
+    report = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
+    labels = sorted(y.unique())
+    cm = confusion_matrix(y_test, y_pred, labels=labels)
 
     metrics = {
+        "best_model": model_info["best_model"],
+        "best_f1_weighted": model_info["best_f1_weighted"],
+        "all_model_scores": model_info["all_model_scores"],
         "accuracy": round(float(accuracy), 4),
-        "labels": sorted(y.unique()),
+        "precision_weighted": round(float(precision), 4),
+        "recall_weighted": round(float(recall), 4),
+        "f1_weighted": round(float(f1), 4),
+        "labels": labels,
         "classification_report": report
     }
 
     with open(METRICS_PATH, "w", encoding="utf-8") as f:
         json.dump(metrics, f, ensure_ascii=False, indent=2)
-
-    labels = sorted(y.unique())
 
     plt.figure(figsize=(6, 5))
     plt.imshow(cm)
@@ -57,7 +77,7 @@ def main() -> None:
     plt.yticks(range(len(labels)), labels)
     plt.xlabel("Predicted")
     plt.ylabel("True")
-    plt.title("Confusion Matrix")
+    plt.title(f"Confusion Matrix ({model_info['best_model']})")
 
     for i in range(len(labels)):
         for j in range(len(labels)):

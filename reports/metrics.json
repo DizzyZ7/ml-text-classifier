@@ -1,5 +1,15 @@
 {
+  "best_model": "LinearSVC",
+  "best_f1_weighted": 0.4444,
+  "all_model_scores": {
+    "LogisticRegression": 0.3175,
+    "MultinomialNB": 0.2167,
+    "LinearSVC": 0.4444
+  },
   "accuracy": 0.4444,
+  "precision_weighted": 0.4444,
+  "recall_weighted": 0.4444,
+  "f1_weighted": 0.4444,
   "labels": [
     "negative",
     "neutral",

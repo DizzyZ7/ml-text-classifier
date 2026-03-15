@@ -15,6 +15,22 @@ def replace_block(content: str, start_marker: str, end_marker: str, new_block: s
     return content[:start_index] + new_block + content[end_index:]
 
 
+def dataframe_to_markdown(df: pd.DataFrame) -> str:
+    headers = list(df.columns)
+    lines = []
+
+    header_row = "| " + " | ".join(headers) + " |"
+    separator_row = "| " + " | ".join(["---"] * len(headers)) + " |"
+    lines.append(header_row)
+    lines.append(separator_row)
+
+    for _, row in df.iterrows():
+        values = [str(value).replace("\n", " ") for value in row.tolist()]
+        lines.append("| " + " | ".join(values) + " |")
+
+    return "\n".join(lines)
+
+
 def main() -> None:
     readme = README_PATH.read_text(encoding="utf-8")
 
@@ -23,14 +39,26 @@ def main() -> None:
 
     examples_df = pd.read_csv(EXAMPLES_PATH).head(5)
 
+    model_scores_lines = "\n".join(
+        [f"- {name}: **{score}**" for name, score in metrics["all_model_scores"].items()]
+    )
+
     metrics_block = f"""<!-- METRICS_START -->
 ## Metrics
 
+- Best Model: **{metrics['best_model']}**
 - Accuracy: **{metrics['accuracy']}**
+- Precision (weighted): **{metrics['precision_weighted']}**
+- Recall (weighted): **{metrics['recall_weighted']}**
+- F1-score (weighted): **{metrics['f1_weighted']}**
 - Labels: **{', '.join(metrics['labels'])}**
+
+### Model Comparison
+
+{model_scores_lines}
 <!-- METRICS_END -->"""
 
-    examples_md = examples_df.to_markdown(index=False)
+    examples_md = dataframe_to_markdown(examples_df)
 
     examples_block = f"""<!-- EXAMPLES_START -->
 ## Example Predictions
